@@ -1,6 +1,6 @@
 const Category = require('../models/Category');
 
-const postCategory = async (req, res) => {
+const createCategory = async (req, res) => {
     try {
         const { name, description, parentCategory, isActive } = req.body;
         const newCategory = new Category({ name, description, parentCategory, isActive });
@@ -38,6 +38,6 @@ const getCategoryById = async (req, res) => {
 };
 
 module.exports = {
-    postCategory,
+    createCategory,
     getCategoryById
 };
