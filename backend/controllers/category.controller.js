@@ -11,7 +11,6 @@ const postCategory = async (req, res) => {
     }
 }
 
-// Read: Obtener categoría por ID
 const getCategoryById = async (req, res) => {
     try {
         const { id } = req.params;
