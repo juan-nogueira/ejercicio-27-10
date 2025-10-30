@@ -1,5 +1,14 @@
 const Category = require('../models/Category');
 
+const getAllCategories = async (req, res) => {
+    try {
+        const categorys = await Category.find()
+        res.json(categorys)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+}
+
 const createCategory = async (req, res) => {
     try {
         const { name, description, parentCategory, isActive } = req.body;
@@ -37,7 +46,30 @@ const getCategoryById = async (req, res) => {
     }
 };
 
+const deleteCategory = async (req, res) => {
+    try {
+        const category = await Category.findByIdAndDelete(req.params.id)
+        res.send("category eliminado con nombre: " + category.name)
+    } catch (error){
+        res.status(500).json({message: error.message})
+    }
+}
+
+const updateCategory = async (req, res) => {
+    try {
+        const category = await Category.findByIdAndUpdate(req.params.id, req.body)
+        res.send("category actualizado con nombre: " + category.name)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+}
+
+
 module.exports = {
     createCategory,
-    getCategoryById
+    getCategoryById,
+    getAllCategories,
+    deleteCategory,
+    updateCategory
+
 };
