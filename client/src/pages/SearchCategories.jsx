@@ -44,7 +44,7 @@ const SearchCategories = () => {
                 category.name.toLowerCase().includes(searchTerm.toLowerCase())
                 )
                 .map((category) => (
-                    <li key={category._id}>{category.name}</li>
+                    <li key={category._id}>{category.name} {category.parentCategory ? `(Categoría Padre: ${category.parentCategory.name})` : ''} {category.isActive ? '(Activa)' : '(Inactiva)'}</li>
                 ))
             ) : (
           <p>No hay categorías disponibles</p>
