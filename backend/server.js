@@ -1,8 +1,8 @@
-const express = require('express')
-const cors = require('cors')
-const mongoose = require('mongoose')
-const productRoutes = require('./routes/product.route')
-const categoryRoutes = require('./routes/category.route')
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import productRoutes from './routes/product.route.js';
+import categoryRoutes from './routes/category.route.js';
 
 
 const app = express()

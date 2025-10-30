@@ -1,7 +1,7 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
-const categoryController = require('../controllers/category.controller');
-import { logger } from "../middleware/logger";
+import categoryController from "../controllers/category.controller.js";
+import logger from "../middleware/logger.js";
 
 
 router.post('/', logger, categoryController.createCategory); // Crear categoría
@@ -10,4 +10,4 @@ router.get('/:id', logger, categoryController.getCategoryById); // Obtener categ
 router.put('/:id', logger, categoryController.updateCategory); // Actualizar categoría
 router.delete('/:id', logger, categoryController.deleteCategory); // Eliminar categoría
 
-module.exports = router;
+export default router;

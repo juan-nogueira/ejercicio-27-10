@@ -1,7 +1,7 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
-const productController = require('../controllers/product.controller');
-const logger = require('../middleware/logger');
+import productController from "../controllers/product.controller.js";
+import logger from "../middleware/logger.js";
 
 
 router.post('/', logger, productController.createProduct);// Crear producto
@@ -10,4 +10,4 @@ router.get('/:id', logger, productController.getProductById);// Obtener producto
 router.put('/:id', logger, productController.updateProduct);// Actualizar producto
 router.delete('/:id', logger, productController.deleteProduct);// Eliminar producto
 
-module.exports = router;
+export default router;
