@@ -2,11 +2,12 @@ import React from "react"
 import { useState, useEffect } from "react";
 
 const SearchCategories = () => {
-  const [categories, setCategories] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
+    const [categories, setCategories] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [error, setError] = useState(null);
+    const [isActiveFilter, setIsActiveFilter] = useState(false);
+    
+    useEffect(() => {
       const fetchCategories = async () => {
           try {
               const response = await fetch("http://localhost:3000/api/categories");
@@ -25,6 +26,8 @@ const SearchCategories = () => {
       fetchCategories();
   }, []);
 
+
+
   return (
     <div>
       <h1>Buscar Categorías</h1>
@@ -35,6 +38,18 @@ const SearchCategories = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
+        {/* aplicar filtros por multiples criterios */}
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={isActiveFilter}
+              onChange={(e) => setIsActiveFilter(e.target.checked)}
+            />
+            Solo Activas
+          </label>
+        </div>
+
       {error && <p style={{color: 'red'}}>Error: {error}</p>}
 
       <ul>
@@ -42,6 +57,7 @@ const SearchCategories = () => {
             categories
                 .filter((category) =>
                 category.name.toLowerCase().includes(searchTerm.toLowerCase())
+                && (!isActiveFilter || category.isActive)
                 )
                 .map((category) => (
                     <li key={category._id}>{category.name} {category.parentCategory ? `(Categoría Padre: ${category.parentCategory.name})` : ''} {category.isActive ? '(Activa)' : '(Inactiva)'}</li>
