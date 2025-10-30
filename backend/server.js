@@ -1,11 +1,12 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const productRoutes = require('./routes/product.route');
-const categoryRoutes = require('./routes/category.route');
+const express = require('express')
+const cors = require('cors')
+const mongoose = require('mongoose')
+const productRoutes = require('./routes/product.route')
+const categoryRoutes = require('./routes/category.route')
 
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const app = express()
+const PORT = process.env.PORT || 3000
 
 const DB_URI = "mongodb+srv://lautismyth_db_user:0890@cluster0.l3ld2cx.mongodb.net/products";
 
