@@ -2,8 +2,62 @@ const Product = require('../models/Product');
 
 const getAllProducts = async (req, res) => {
     try {
-        const products = await Product.find().populate('category', 'name description parentCategory');
-        res.json(products);
+        const page = parseInt(req.query.page) > 0 ? parseInt(req.query.page) : 1;
+        const limit = parseInt(req.query.limit) > 0 ? parseInt(req.query.limit) : 10;
+        const skip = (page - 1) * limit;
+
+        const filter = {};
+        if (req.query.category) {
+            filter.category = req.query.category;
+        }
+        if (req.query.inStock === 'true') {
+            filter.stock = { $gt: 0 };
+        }
+        if (req.query.isAvailable === 'true') {
+            filter.isAvailable = true;
+        }
+        if (req.query.minPrice || req.query.maxPrice) {
+            filter.price = {};
+            if (req.query.minPrice) filter.price.$gte = parseFloat(req.query.minPrice);
+            if (req.query.maxPrice) filter.price.$lte = parseFloat(req.query.maxPrice);
+        }
+        if (req.query.q) {
+            filter.$or = [
+                { name: { $regex: req.query.q, $options: 'i' } },
+                { description: { $regex: req.query.q, $options: 'i' } }
+            ];
+        }
+
+        let sort = {};
+        if (req.query.sort) {
+            const sortFields = req.query.sort.split(',');
+            sortFields.forEach(field => {
+                if (field.startsWith('-')) {
+                    sort[field.substring(1)] = -1;
+                } else {
+                    sort[field] = 1;
+                }
+            });
+        } else {
+            sort = { createdAt: -1 };
+        }
+
+        const total = await Product.countDocuments(filter);
+        const products = await Product.find(filter)
+            .sort(sort)
+            .skip(skip)
+            .limit(limit)
+            .populate('category', 'name description parentCategory');
+
+        const totalPages = Math.ceil(total / limit);
+
+        res.json({
+            page,
+            limit,
+            total,
+            totalPages,
+            products
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
