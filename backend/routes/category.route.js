@@ -4,7 +4,7 @@ const categoryController = require('../controllers/category.controller');
 
 
 router.post('/', categoryController.createCategory); // Crear categoría
-router.get('/', categoryController.getCategories);// Listar categorías
+router.get('/', categoryController.getAllCategories);// Listar categorías
 router.get('/:id', categoryController.getCategoryById); // Obtener categoría por ID
 router.put('/:id', categoryController.updateCategory); // Actualizar categoría
 router.delete('/:id', categoryController.deleteCategory); // Eliminar categoría

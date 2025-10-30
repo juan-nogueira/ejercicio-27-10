@@ -1,6 +1,6 @@
 const Category = require('../models/Category');
 
-const getAllCategorys = async (req, res) => {
+const getAllCategories = async (req, res) => {
     try {
         const categorys = await Category.find()
         res.json(categorys)
@@ -68,7 +68,7 @@ const updateCategory = async (req, res) => {
 module.exports = {
     createCategory,
     getCategoryById,
-    getAllCategorys,
+    getAllCategories,
     deleteCategory,
     updateCategory
 
