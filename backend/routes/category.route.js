@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const categoryController = require('../controllers/category.controller');
-import { logger } from "../middlewares/logger.js";
+import { logger } from "../middleware/logger";
 
 
 router.post('/', logger, categoryController.createCategory); // Crear categoría
