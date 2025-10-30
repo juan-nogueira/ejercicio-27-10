@@ -1,5 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const productRoutes = require('./routes/product.route');
+const categoryRoutes = require('./routes/category.route');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,8 +22,11 @@ mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(express.json());
 
+app.use("/api/products", productRoutes)
+app.use("/api/categories", categoryRoutes)
+
 app.listen(PORT, () => {
   console.log(`Servidor Express escuchando en el puerto ${PORT}`);
-  console.log(`Prueba: http://localhost:${PORT}/usuarios`);
-  console.log(`Prueba: http://localhost:${PORT}/publicaciones`);
+  console.log(`Prueba: http://localhost:${PORT}/api/products`);
+  console.log(`Prueba: http://localhost:${PORT}/api/categories`);
 });
