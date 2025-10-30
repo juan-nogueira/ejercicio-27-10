@@ -15,7 +15,7 @@ const SearchCategories = () => {
                   throw new Error(`HTTP error! status: ${response.status}`);
               }
               const data = await response.json();
-              console.log('Categorías recibidas:', data); // Para debug
+              console.log('Categorías recibidas:', data);
               setCategories(data);
           } catch (error) {
               console.error('Error fetching categories:', error);
@@ -38,7 +38,6 @@ const SearchCategories = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
-        {/* aplicar filtros por multiples criterios */}
         <div>
           <label>
             <input
