@@ -2,8 +2,8 @@ const Category = require('../models/Category');
 
 const getAllCategories = async (req, res) => {
     try {
-        const categorys = await Category.find()
-        res.json(categorys)
+        const categorys = await Category.find().populate('parentCategory', 'name');
+        res.json(categorys);
     } catch (error) {
         res.status(500).json({message: error.message})
     }
