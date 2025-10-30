@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/product.controller');
-import { logger } from "../middleware/logger";
+const logger = require('../middleware/logger');
 
 
 router.post('/', logger, productController.createProduct);// Crear producto
